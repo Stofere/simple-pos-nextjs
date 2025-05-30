@@ -6,18 +6,32 @@ generator client {
 }
 
 datasource db {
-    provider = "postgresql"
+    provider  = "postgresql"
     directUrl = env("DIRECT_URL") // untuk sync ke database supabase 
-    url = env("DATABASE_URL") // query seperti insert update delete data pakai ini
+    url       = env("DATABASE_URL") // query seperti insert update delete data pakai ini
 }
 
 model Category {
     id String @id @default(uuid())
-    
-    name String @unique
-    productCount Int @default(0)
+
+    name         String @unique
+    productCount Int    @default(0)
+
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    products  Product[]
+}
+
+model Product {
+    id String @id @default(uuid())
+
+    name     String
+    price    Int
+    imageUrl String?
+
+    category   Category @relation(fields: [categoryId], references: [id])
+    categoryId String
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-
 }
