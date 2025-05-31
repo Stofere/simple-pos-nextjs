@@ -31,10 +31,10 @@ export async function uploadFileToSignedUrl({
     // Metode ini secara internal akan membuat PUT request ke URL Pre-signed yang sesuai
     // dengan path dan token yang diberikan, dengan body request adalah `file`.
     // `bucket` menentukan bucket tujuan di Supabase Storage.
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     // Komentar eslint-disable di atas mungkin ada karena tipe `data` dari Supabase bisa `any`
     // atau memerlukan penanganan tipe yang lebih spesifik jika TypeScript tidak bisa meng-infer-nya dengan baik.
-
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const { data, error } = await supabaseClient.storage
       .from(bucket)
       .uploadToSignedUrl(path, token, file); // Operasi upload file adalah asynchronous
